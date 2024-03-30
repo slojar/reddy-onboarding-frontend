@@ -1,0 +1,57 @@
+.leaderboard-container {
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: column; */
+    align-items: center;
+    padding-top: 50px;
+    background: transparent;
+    border: 2px solid grey;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 1px 3px 2px solid transparent;
+  }
+  
+  .welcome-header {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .leaderboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .leaderboard-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .rank {
+    margin-right: 10px;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

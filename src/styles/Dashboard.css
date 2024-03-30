@@ -1,0 +1,30 @@
+.dashboard {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .card {
+    width: 45%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05); /* Scale up the card on hover */
+  }
+  
+  .navigation-card {
+    background-color: #3498db;
+  }
+  
+  .leaderboard-card {
+    background-color: #2ecc71;
+  }
+  
+  h2 {
+    color: #ffffff;
+  }
+  
