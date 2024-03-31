@@ -18,41 +18,41 @@ const Leaderboard = () => {
   const [user, SetUser] = useState(JSON.parse(localStorage.getItem("username")))
   console.log("🚀 ~ Leaderboard ~ leaderboardData:", leaderboardData)
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch("http://127.0.0.1:8000/activites", {
-  //         method: "GET",
-  //         headers: {
-  //           // Optional headers
-  //           // Add headers if needed
-  //         },
-  //       });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/activities", {
+          method: "GET",
+          headers: {
+            // Optional headers
+            // Add headers if needed
+          },
+        });
     
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch data");
-  //       }
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
     
-  //       const data = await response.json();
-  //       // set data from backend to the state leaderboardData
-  //       SetAct(data)
+        const data = await response.json();
+        // set data from backend to the state leaderboardData
+        SetAct(data)
         
-  //       // Parse the response body as JSON
+        // Parse the response body as JSON
     
-  //       // Handle the data as needed
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
+        // Handle the data as needed
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     
-  //   fetchData();
-  // },[])
+    fetchData();
+  },[])
   // use this to get all scores
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/leadersboard", {
+        const response = await fetch("http://localhost:8000/leadersboard", {
           method: "GET",
           headers: {
             // Optional headers
@@ -83,10 +83,8 @@ const Leaderboard = () => {
   useEffect(() => {
     // Simulate data update every 5 seconds
     const interval = setInterval(() => {
-      // Update scores randomly
       const updatedData = leaderboardData.map(item => ({
         ...item,
-        score: Math.floor(Math.random() * 100) + 1
       }));
       setLeaderboardData(updatedData);
     }, 5000);
@@ -97,7 +95,7 @@ const Leaderboard = () => {
 
   const doTraining = async () => {
     // if it post request
-    const response = await fetch("http://127.0.0.1:8000/perform-traning", {
+    const response = await fetch("http://localhost:8000/perform-training", {
       method: "POST",
       headers: {
         "Content-Type": "application/json", // Assuming JSON data is being sent
@@ -108,15 +106,16 @@ const Leaderboard = () => {
        username:user
       }),
     });
-    const data = response.json();
-    if (!data.status) {
-      alert(data.message)
+    if (response.ok) {
+      const data = await response.json();
+      alert(`Training Complete: Your score is ${data?.data.score}`);
+    } else {
+      const errorMessage = await response.text();
+      alert("An error occurred. Please try again later");
     }
-
-
-   
-
   }
+
+  
   const getActivities = (e) => {
     SetSelect(e.target.value)
   }
@@ -146,7 +145,7 @@ const Leaderboard = () => {
 
           </div>
           {
-            Select.toString().length > 0  ? <AnimatedButton title="Do training" handleclick={doTraining}/> : ""
+            Select.toString().length > 0  ? <AnimatedButton title="Perform Training" handleclick={doTraining}/> : ""
           }
      
         </div>
@@ -159,7 +158,7 @@ const Leaderboard = () => {
             >
               <div className="user-info">
                 <span className="rank">{index + 1}</span>
-                <span className="name">{user.name}</span>
+                <span className="name">{user.username}</span>
               </div>
               <div className="score">{user.score}</div>
             </div>
